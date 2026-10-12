@@ -1,20 +1,19 @@
 trigger:
- - master
+- master
 
 pool:
- vmImage: ubantu-latest
+  vmImage: 'ubuntu-latest'
 
- steps:
- -task: Maven@4
+steps:
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean package'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
- inputs:
- mavenPomFile: 'pom.xml'
- goals: 'clean package'
- publishjUnitResults: true
- testResultFiles: '**/surefire-reports/TEST-*.xml'
-
- -task: PublishBuildArtifacts@1
-inputs:
-PathtoPublish:'target'
-ArtifactName:'drop'
-publishLoaction:'contaniner
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'target'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
