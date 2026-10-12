@@ -1,0 +1,20 @@
+trigger:
+ - master
+
+pool:
+ vmImage: ubantu-latest
+
+ steps:
+ -task: Maven@4
+
+ inputs:
+ mavenPomFile: 'pom.xml'
+ goals: 'clean package'
+ publishjUnitResults: true
+ testResultFiles: '**/surefire-reports/TEST-*.xml'
+
+ -task: PublishBuildArtifacts@1
+inputs:
+PathtoPublish:'target'
+ArtifactName:'drop'
+publishLoaction:'contaniner
